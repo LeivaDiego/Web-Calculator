@@ -1,6 +1,6 @@
-export default function Button ({ label, onClick }) {
+export default function Button ({ label, onClick, className = '' }) {
   return (
-    <button className='calc-btn' onClick={() => onClick(label)}>
+    <button className={`calc-btn ${className}`} onClick={() => onClick(label)}>
       {label}
     </button>
   )

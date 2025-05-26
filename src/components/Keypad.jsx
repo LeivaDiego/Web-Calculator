@@ -12,7 +12,7 @@ export default function Keypad ({ onPress }) {
   return (
     <>
       {buttons.flat().map(label => (
-        <Button key={label} label={label} onClick={onPress} />
+        <Button key={label} label={label} onClick={onPress} className={label === '=' ? 'wide': ''} />
       ))}
     </>
   )
