@@ -64,6 +64,8 @@ export default function useCalculator () {
     if (label === 'AC') {
       setDisplay('0') // Reset the display to '0'
       setResetNext(false) // Reset the flag to not reset next input
+      setPrevValue(null)    // Reset the previous value
+    setOperator(null)      // Reset the operator
       return
     }
 
