@@ -24,6 +24,7 @@ export default function useCalculator () {
       case '-': result = a - b; break
       case '*': result = a * b; break
       case '/': result = b === 0 ? 'ERROR' : a / b; break
+      case '%': result = b === 0 ? 'ERROR' : a % b; break
       default: return display
     }
 
@@ -45,8 +46,12 @@ export default function useCalculator () {
       // Check if the decimal part exceeds the allowed length
       if (allowedDecimalLength <= 0) return 'ERROR'
 
+      // Trim the decimal part to the allowed length
       const trimmedDecimal = `${intPart}.${decimalPart.slice(0, allowedDecimalLength)}`
-      return trimmedDecimal
+
+      // Parse the trimmed decimal to a float and convert it back to string
+      return parseFloat(trimmedDecimal).toString()
+
 
     }
     return result
@@ -93,7 +98,7 @@ export default function useCalculator () {
     }
 
     // Handle basic operator inputs
-    if (['+', '-', '*', '/'].includes(label)) {
+    if (['+', '-', '*', '/', '%'].includes(label)) {
       // If the operator is already set and we are not resetting next input,
       // calculate the result and update the display
       if (operator && !resetNext) {
