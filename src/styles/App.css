@@ -33,3 +33,17 @@ main {
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
 }
+
+.calc-btn {
+  padding: 1rem;
+  font-size: 1.2rem;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.calc-btn:hover {
+  background-color: #646cff;
+}
