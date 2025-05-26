@@ -6,7 +6,6 @@ main {
   flex-direction: column;
 }
 
-
 .calculator {
   display: flex;
   flex-direction: column;
@@ -14,18 +13,28 @@ main {
   width: 300px;
   margin: 0 auto;
   padding: 1rem;
-  border: 2px solid #ccc;
+  border: 2px solid #10213a;
   border-radius: 1rem;
-  background-color: #333;
+  background-color: #183853;
+
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.4), 
+    inset 0 -4px 8px rgba(0, 0, 0, 0.3);
 }
 
+
 .display {
-  background-color: black;
-  color: lime;
+  background-color: #10213a;
+  border: 2px solid #162449;
+  color: #0dc2b7;
   font-size: 2rem;
   padding: 1rem;
   text-align: right;
   border-radius: 0.5rem;
+
+  box-shadow:
+    inset 0 4px 8px rgba(0, 0, 0, 0.6),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.05);
 }
 
 .keypad {
@@ -37,18 +46,25 @@ main {
 .calc-btn {
   padding: 1rem;
   font-size: 1.2rem;
-  background-color: #444;
-  color: white;
-  border: none;
+  font-family: Pixelify Sans, sans-serif;
+  background-color: #286e6c;
+  color: #14cabf;
+  border: 2px solid #06e3d1;
   border-radius: 0.5rem;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 4px #0b4e4f;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.calc-btn:active {
+  box-shadow: 0 2px #0b4e4f;
+  transform: translateY(2px);
 }
 
 .calc-btn.wide {
   grid-column: span 2;
 }
 
-
 .calc-btn:hover {
-  background-color: #646cff;
+  background-color: #30595e;
 }

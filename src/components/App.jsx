@@ -4,7 +4,7 @@ import Calculator from './Calculator.jsx'
 function App () {
   return (
     <main>
-      <h1>Calculadora</h1>
+      <h1>CALCULADORA</h1>
       <Calculator />
     </main>
   )
