@@ -32,4 +32,51 @@ describe('useCalculator - Functional Tests', () => {
     inputSequence(result, ['7', '/', '0', '='])
     expect(result.current.display).toBe('ERROR')
   })
+
+  it('ignores operation if no number is entered yet', () => {
+  const { result } = renderHook(() => useCalculator())
+  inputSequence(result, ['+', '5', '='])
+  expect(result.current.display).toBe('5')
+  })
+
+  it('handles multiple operators pressed consecutively', () => {
+    const { result } = renderHook(() => useCalculator())
+    inputSequence(result, ['5', '+', '-', '*', '2', '='])
+    expect(result.current.display).toBe('10')
+  })
+
+
+  it('clears all state on AC during operation', () => {
+    const { result } = renderHook(() => useCalculator())
+    inputSequence(result, ['8', '*', 'AC', '7', '='])
+    expect(result.current.display).toBe('7')
+  })
+
+
+  it('handles long decimal results and truncates correctly', () => {
+    const { result } = renderHook(() => useCalculator())
+    inputSequence(result, ['2', '/', '3', '='])
+    expect(result.current.display.length).toBeLessThanOrEqual(9)
+    expect(result.current.display).toMatch(/^\d+\.\d+$/)
+  })
+
+  it('handles sign change before and after operations', () => {
+    const { result } = renderHook(() => useCalculator())
+    inputSequence(result, ['8', '+/-', '+', '2', '='])
+    expect(result.current.display).toBe('ERROR')
+  })
+
+  it('does not allow multiple decimal points', () => {
+    const { result } = renderHook(() => useCalculator())
+    inputSequence(result, ['1', '.', '2', '.', '3'])
+    expect(result.current.display).toBe('1.23')
+  })
+
+
+  it('chains calculations using previous result', () => {
+    const { result } = renderHook(() => useCalculator())
+    inputSequence(result, ['3', '+', '3', '=', '*', '2', '='])
+    expect(result.current.display).toBe('12')
+  })
+
 })
