@@ -7,6 +7,52 @@ export default function useCalculator () {
   const [display, setDisplay] = useState('0')
   const [resetNext, setResetNext] = useState(false)
 
+  // States to manage previous value and operator for calculations
+  const [prevValue, setPrevValue] = useState(null)
+  const [operator, setOperator] = useState(null)
+
+  // Manage calculations
+  const calculate = () => {
+    if (prevValue === null || operator === null) return display
+
+    const a = parseFloat(prevValue)
+    const b = parseFloat(display)
+    let result = 0
+
+    switch (operator) {
+      case '+': result = a + b; break
+      case '-': result = a - b; break
+      case '*': result = a * b; break
+      case '/': result = b === 0 ? 'ERROR' : a / b; break
+      default: return display
+    }
+
+    // Check if the result is a valid number
+    if (typeof result === 'number' && !isNaN(result)) {
+      // Check if the result exceeds 9 characters or is negative
+      if (result < 0 || result > 999999999) return 'ERROR'
+
+      // Convert the result to a string 
+      // and split it into integer and decimal parts
+      const resultStr = result.toString()
+      const [intPart, decimalPart] = resultStr.split('.')
+
+      // Check if the number is an integer only
+      if (!decimalPart) return resultStr.length > 9 ? 'ERROR' : resultStr
+
+      const allowedDecimalLength = 9 - intPart.length - 1 // 1 for the decimal point
+
+      // Check if the decimal part exceeds the allowed length
+      if (allowedDecimalLength <= 0) return 'ERROR'
+
+      const trimmedDecimal = `${intPart}.${decimalPart.slice(0, allowedDecimalLength)}`
+      return trimmedDecimal
+
+    }
+    return result
+  }
+
+
   // Handle the reset button
   const handleInput = label => {
     // Check if the input is a reset command
@@ -46,7 +92,33 @@ export default function useCalculator () {
       return
     }
 
-    // TODO: Handle other operations like '+', '-', '*', '/', etc.
+    // Handle basic operator inputs
+    if (['+', '-', '*', '/'].includes(label)) {
+      if (operator && !resetNext) {
+        const result = calculate()
+        setDisplay(result)
+        setPrevValue(result)
+      } else {
+        setPrevValue(display)
+      }
+      setOperator(label)
+      setResetNext(true)
+      return
+    }
+
+
+    // Handle equals button
+    if (label === '=') {
+      if (!operator || prevValue === null) return
+
+      const result = calculate()
+      setDisplay(result)
+      setPrevValue(null)
+      setOperator(null)
+      setResetNext(true)
+      return
+    }
+
     console.log('Pressed Button:', label)
   }
 
