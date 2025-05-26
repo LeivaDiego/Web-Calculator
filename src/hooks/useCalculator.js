@@ -94,14 +94,20 @@ export default function useCalculator () {
 
     // Handle basic operator inputs
     if (['+', '-', '*', '/'].includes(label)) {
+      // If the operator is already set and we are not resetting next input,
+      // calculate the result and update the display
       if (operator && !resetNext) {
-        const result = calculate()
-        setDisplay(result)
-        setPrevValue(result)
+        // Calculate the result using the previous value and operator
+        const result = calculate()         
+        setDisplay(result) // Update the display with the result
+        setPrevValue(result) // Update the previous value with the result
       } else {
+        // If we are resetting next input, just set the display to the current value
         setPrevValue(display)
       }
+      // Set the operator to the new operator
       setOperator(label)
+      // Set the flag to reset the next input
       setResetNext(true)
       return
     }
@@ -109,15 +115,39 @@ export default function useCalculator () {
 
     // Handle equals button
     if (label === '=') {
+      // If there is no operator or previous value, do nothing
+      // If we have an operator and a previous value, calculate the result
       if (!operator || prevValue === null) return
 
+      // Calculate the result and update the display
       const result = calculate()
-      setDisplay(result)
-      setPrevValue(null)
-      setOperator(null)
-      setResetNext(true)
+      setDisplay(result) // Update the display with the result
+      setPrevValue(null) // Reset the previous value
+      setOperator(null) // Reset the operator
+      setResetNext(true) // Set the flag to reset the next input
       return
     }
+
+    // Handle +/- button
+    if (label === '+/-') {
+      // If the display is 'ERROR', do nothing
+      if (display === 'ERROR') return
+      // If the display is '0', do nothing
+      if (display === '0') return
+      // If the display is negative, remove the negative sign
+      if (display.startsWith('-')) {
+        setDisplay(display.slice(1)) // Remove the negative sign
+
+      } else if (display.length < 9) {
+        // If the display is positive, add a negative sign
+        // Check if the display is a valid number and not too long
+        setDisplay('-' + display)
+      }
+
+      return
+    }
+
+
 
     console.log('Pressed Button:', label)
   }
