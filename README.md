@@ -28,6 +28,10 @@ Este proyecto es una calculadora simple construida con React, diseñada para pra
 - Todos los inputs solo por botones (no teclado)
 - Botón de "=" más ancho visualmente
 
+## 📸 Preview
+
+![Calculator Preview](src/assets/preview.png)
+
 ## 📂 Estructura del proyecto
 
 ```text
@@ -50,6 +54,7 @@ src/
 │   ├── Display.stories.jsx
 ├── tests/
 │   └── useCalculator.test.js
+└── main.jsx
 ```
 
 ## 🧪 Scripts disponibles
