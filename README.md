@@ -83,6 +83,10 @@ npm test
 npm run lint
 ```
 
+```bash
+npm run lint:fix
+```
+
 ### 📚 Ejecutar Storybook
 
 ```bash

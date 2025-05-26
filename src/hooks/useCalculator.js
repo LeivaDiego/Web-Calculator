@@ -33,7 +33,7 @@ export default function useCalculator () {
       // Check if the result exceeds 9 characters or is negative
       if (result < 0 || result > 999999999) return 'ERROR'
 
-      // Convert the result to a string 
+      // Convert the result to a string
       // and split it into integer and decimal parts
       const resultStr = result.toString()
       const [intPart, decimalPart] = resultStr.split('.')
@@ -51,12 +51,9 @@ export default function useCalculator () {
 
       // Parse the trimmed decimal to a float and convert it back to string
       return parseFloat(trimmedDecimal).toString()
-
-
     }
     return result
   }
-
 
   // Handle the reset button
   const handleInput = label => {
@@ -64,8 +61,8 @@ export default function useCalculator () {
     if (label === 'AC') {
       setDisplay('0') // Reset the display to '0'
       setResetNext(false) // Reset the flag to not reset next input
-      setPrevValue(null)    // Reset the previous value
-    setOperator(null)      // Reset the operator
+      setPrevValue(null) // Reset the previous value
+      setOperator(null) // Reset the operator
       return
     }
 
@@ -88,8 +85,8 @@ export default function useCalculator () {
     if (label === '.') {
       // If the display is '0' or we need to reset the next input,
       // set the display to '0.' or append '.' if it doesn't already exist
-      if (resetNext) {  
-        setDisplay('0.')  // Start a new number with '0.'
+      if (resetNext) {
+        setDisplay('0.') // Start a new number with '0.'
         setResetNext(false) // Reset the flag to not reset next input
       } else if (!display.includes('.') && display.length < 9) {
         // If the display does not already contain a decimal point
@@ -105,7 +102,7 @@ export default function useCalculator () {
       // calculate the result and update the display
       if (operator && !resetNext) {
         // Calculate the result using the previous value and operator
-        const result = calculate()         
+        const result = calculate()
         setDisplay(result) // Update the display with the result
         setPrevValue(result) // Update the previous value with the result
       } else {
@@ -118,7 +115,6 @@ export default function useCalculator () {
       setResetNext(true)
       return
     }
-
 
     // Handle equals button
     if (label === '=') {
@@ -144,7 +140,6 @@ export default function useCalculator () {
       // If the display is negative, remove the negative sign
       if (display.startsWith('-')) {
         setDisplay(display.slice(1)) // Remove the negative sign
-
       } else if (display.length < 9) {
         // If the display is positive, add a negative sign
         // Check if the display is a valid number and not too long
@@ -153,8 +148,6 @@ export default function useCalculator () {
 
       return
     }
-
-
 
     console.log('Pressed Button:', label)
   }

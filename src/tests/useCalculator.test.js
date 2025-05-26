@@ -11,7 +11,7 @@ const inputSequence = (result, sequence) => {
 describe('useCalculator - Functional Tests', () => {
   it('performs chained operations correctly', () => {
     const { result } = renderHook(() => useCalculator())
-    inputSequence(result, ['4', '-', '3', '+', '5','*','6','/','2', '='])
+    inputSequence(result, ['4', '-', '3', '+', '5', '*', '6', '/', '2', '='])
     expect(result.current.display).toBe('18')
   })
 
@@ -34,9 +34,9 @@ describe('useCalculator - Functional Tests', () => {
   })
 
   it('ignores operation if no number is entered yet', () => {
-  const { result } = renderHook(() => useCalculator())
-  inputSequence(result, ['+', '5', '='])
-  expect(result.current.display).toBe('5')
+    const { result } = renderHook(() => useCalculator())
+    inputSequence(result, ['+', '5', '='])
+    expect(result.current.display).toBe('5')
   })
 
   it('handles multiple operators pressed consecutively', () => {
@@ -45,13 +45,11 @@ describe('useCalculator - Functional Tests', () => {
     expect(result.current.display).toBe('10')
   })
 
-
   it('clears all state on AC during operation', () => {
     const { result } = renderHook(() => useCalculator())
     inputSequence(result, ['8', '*', 'AC', '7', '='])
     expect(result.current.display).toBe('7')
   })
-
 
   it('handles long decimal results and truncates correctly', () => {
     const { result } = renderHook(() => useCalculator())
@@ -72,11 +70,9 @@ describe('useCalculator - Functional Tests', () => {
     expect(result.current.display).toBe('1.23')
   })
 
-
   it('chains calculations using previous result', () => {
     const { result } = renderHook(() => useCalculator())
     inputSequence(result, ['3', '+', '3', '=', '*', '2', '='])
     expect(result.current.display).toBe('12')
   })
-
 })
