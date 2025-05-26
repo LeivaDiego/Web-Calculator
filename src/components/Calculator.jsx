@@ -1,15 +1,14 @@
 import Keypad from './Keypad'
+import useCalculator from '../hooks/useCalculator'
 
 export default function Calculator () {
-  const handleButton = label => {
-    console.log('Presionaste:', label)
-  }
+  const { display, handleInput } = useCalculator()
 
   return (
     <div className='calculator'>
-      <div className='display'>0</div>
+      <div className='display'>{display}</div>
       <div className='keypad'>
-        <Keypad onPress={handleButton} />
+        <Keypad onPress={handleInput} />
       </div>
     </div>
   )
